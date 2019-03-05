@@ -1,15 +1,9 @@
-runtime: php
-env: flex
-
-runtime_config:
-  document_root: public
-  enable_stackdriver_integration: true
-
-# Ensure we skip ".env", which is only for local development
-skip_files:
-  - .env
-
-env_variables:
-  # Put production environment variables here.
-  APP_LOG: errorlog
-  APP_KEY: base64:/uMU68rBbN2n/RWDEOg2b2SkkUGkCVy8h2dZKnzI2L8=
+runtime: python27
+api_version: 1
+threadsafe: true
+handlers:
+- url: /
+  static_files: dist/testingAgence/index.html
+  upload: dist/testingAgence/index.html
+- url: /
+  static_dir: dist/testingAgence
