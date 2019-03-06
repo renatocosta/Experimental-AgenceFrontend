@@ -1,0 +1,34 @@
+<mat-card class="box-card">
+    <mat-tab-group>
+        <mat-tab label="Por Consultor">
+            <app-filter></app-filter>
+        </mat-tab>
+        <mat-tab label="Por Cliente">
+            <app-filter></app-filter>
+        </mat-tab>
+    </mat-tab-group>
+    <mat-grid-list cols="3" rowHeight="2:1">
+            <mat-grid-tile>
+                <button mat-raised-button color="primary" (click)="getByReport()">
+                    <i class="material-icons">receipt</i>
+                    Relatório
+                </button>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <button mat-raised-button color="primary" (click)="renderBarChart()">
+                    <i class="material-icons">bar_chart</i>
+                    Gráfico
+                </button>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <button mat-raised-button color="primary" (click)="renderPieChart()">
+                    <i class="material-icons">pie_chart</i>
+                    Pizza
+                </button>
+            </mat-grid-tile>
+    </mat-grid-list>    
+    <app-table [showTableStatus]=showTable></app-table>      
+    <app-bar-chart [showBarStatus]=showBarChart></app-bar-chart>          
+    <app-pie-chart [showPieStatus]=showPieChart></app-pie-chart>          
+
+</mat-card>

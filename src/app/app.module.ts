@@ -6,18 +6,42 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MyNavComponent } from './my-nav/my-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatGridListModule, MatCardModule, MatMenuModule, MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
-import { MyDashboardComponent } from './my-dashboard/my-dashboard.component';
-import { NameComponent } from './name/name.component';
+import { FormsModule } from '@angular/forms';  
+import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatDividerModule, MatIconModule, MatListModule, MatCardModule, MatMenuModule, MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule, MatInputModule, MatDatepickerModule, MatNativeDateModule, DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatSelectModule, MatGridListModule } from '@angular/material';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { TabComponent } from './tab/tab.component';
+import {MatTabsModule} from '@angular/material/tabs';
+import { TableComponent } from './table/table.component';
+import { FilterComponent } from './filter/filter.component';
+import { ChartsModule } from 'ng2-charts';
+import { PieChartComponent } from './pie-chart/pie-chart.component';
+import { BarChartComponent } from './bar-chart/bar-chart.component';
+
+//create our cost var with the information about the format that we want
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MM YYYY',
+    dateA11yLabel: 'DD/MM/YYYY',
+    monthYearA11yLabel: 'MM YYYY',
+  },
+};
 
 @NgModule({
   declarations: [
     AppComponent,
     MyNavComponent,
-    MyDashboardComponent,
-    NameComponent
+    TabComponent,
+    TableComponent,
+    FilterComponent,
+    PieChartComponent,
+    BarChartComponent
   ],
   imports: [
+    FormsModule,  
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -32,9 +56,21 @@ import { NameComponent } from './name/name.component';
     MatMenuModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatTabsModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatSelectModule,
+    MatDividerModule,
+    ChartsModule
   ],
-  providers: [],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'it' }, //you can change useValue
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

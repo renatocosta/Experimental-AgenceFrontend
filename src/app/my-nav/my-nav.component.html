@@ -5,9 +5,13 @@
       [opened]="!(isHandset$ | async)">
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item href="#">Link 1</a>
-      <a mat-list-item href="#">Link 2</a>
-      <a mat-list-item href="#">Link 3</a>
+      <a mat-list-item href="#">Agence</a>
+      <a mat-list-item href="#">Projetos</a>
+      <a mat-list-item href="#">Administrativo</a>
+      <a mat-list-item href="#">Comercial</a>
+      <a mat-list-item href="#">Financeiro</a>
+      <a mat-list-item href="#">Usuário</a>
+      <a mat-list-item href="#">Sair</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -20,8 +24,10 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>agenceFrontend</span>
+      <span><img src="./assets/img/logo.gif"></span>
     </mat-toolbar>
-    <!-- Add Content Here -->
+
+    <app-tab></app-tab>
+
   </mat-sidenav-content>
 </mat-sidenav-container>

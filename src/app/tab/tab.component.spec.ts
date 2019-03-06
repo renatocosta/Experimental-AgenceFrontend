@@ -1,37 +1,37 @@
 import { LayoutModule } from '@angular/cdk/layout';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatButtonModule,
-  MatCardModule,
-  MatGridListModule,
   MatIconModule,
-  MatMenuModule,
+  MatListModule,
+  MatSidenavModule,
+  MatToolbarModule,
 } from '@angular/material';
 
-import { MyDashboardComponent } from './my-dashboard.component';
+import { TabComponent } from './tab.component';
 
-describe('MyDashboardComponent', () => {
-  let component: MyDashboardComponent;
-  let fixture: ComponentFixture<MyDashboardComponent>;
+describe('MyNavComponent', () => {
+  let component: TabComponent;
+  let fixture: ComponentFixture<TabComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [MyDashboardComponent],
+      declarations: [TabComponent],
       imports: [
         NoopAnimationsModule,
         LayoutModule,
         MatButtonModule,
-        MatCardModule,
-        MatGridListModule,
         MatIconModule,
-        MatMenuModule,
+        MatListModule,
+        MatSidenavModule,
+        MatToolbarModule,
       ]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MyDashboardComponent);
+    fixture = TestBed.createComponent(TabComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
