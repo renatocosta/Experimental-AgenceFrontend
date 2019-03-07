@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MyNavComponent } from './my-nav/my-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { FormsModule } from '@angular/forms';  
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';  
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatDividerModule, MatIconModule, MatListModule, MatCardModule, MatMenuModule, MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule, MatInputModule, MatDatepickerModule, MatNativeDateModule, DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatSelectModule, MatGridListModule, MatProgressSpinnerModule } from '@angular/material';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { TabComponent } from './tab/tab.component';
@@ -18,6 +18,7 @@ import { PieChartComponent } from './pie-chart/pie-chart.component';
 import { BarChartComponent } from './bar-chart/bar-chart.component';
 import { globals } from '../environments/globals';
 import { ProgressSpinnerComponent } from './progress-spinner/progress-spinner.component';
+import { HttpClientModule } from  '@angular/common/http';
 
 //create our cost var with the information about the format that we want
 export const MY_FORMATS = {
@@ -68,7 +69,9 @@ export const MY_FORMATS = {
     MatSelectModule,
     MatDividerModule,
     ChartsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    HttpClientModule,
+    ReactiveFormsModule    
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'it' }, //you can change useValue

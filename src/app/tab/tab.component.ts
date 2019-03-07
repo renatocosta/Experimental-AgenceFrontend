@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import { globals } from '../../environments/globals';
+import { FormsModule }   from '@angular/forms';
 
 @Component({
   selector: 'app-tab',

@@ -1,24 +1,21 @@
-<mat-list>
-        <mat-list-item></mat-list-item>
-</mat-list>      
-<form class="consultant-form">
+<form [formGroup]="ownerForm" autocomplete="off" novalidate (ngSubmit)="createOwner(ownerForm.value)">
     <mat-form-field>
         <mat-label>Início</mat-label>
-        <input matInput [matDatepicker]="myPicker" placeholder="Data" format="DD/MM/YYYY">
+        <input matInput [matDatepicker]="myPicker" formControlName="startDate" id="startDate" placeholder="Data" format="DD/MM/YYYY">
         <mat-datepicker-toggle matSuffix [for]="myPicker"></mat-datepicker-toggle>
         <mat-datepicker #myPicker></mat-datepicker>
     </mat-form-field>
     à
     <mat-form-field>
         <mat-label>Término</mat-label>
-        <input matInput [matDatepicker]="myPicker2" placeholder="Data" format="DD/MM/YYYY">
+        <input matInput [matDatepicker]="myPicker2" formControlName="endDate" id="endDate" placeholder="Data" format="DD/MM/YYYY">
         <mat-datepicker-toggle matSuffix [for]="myPicker2"></mat-datepicker-toggle>
         <mat-datepicker #myPicker2></mat-datepicker>
     </mat-form-field>
     &nbsp;
     <mat-form-field>
             <mat-label>{{filterLabel}}</mat-label>
-            <mat-select multiple>
+            <mat-select formControlName="items" id="items" multiple>
             <mat-option *ngFor="let item of lists" [value]="item">{{item}}</mat-option>
         </mat-select>
     </mat-form-field>
