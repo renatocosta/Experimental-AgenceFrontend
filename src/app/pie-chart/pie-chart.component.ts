@@ -11,8 +11,6 @@ export class PieChartComponent implements OnInit {
   public pieChartData = [120, 150, 180, 90];
   public pieChartType = 'pie';
 
-  @Input() showPieStatus: number;
-
   constructor() { }
 
   ngOnInit() {

@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { globals } from '../../environments/globals';
 
 export interface Transaction {
   period: string;
@@ -17,19 +18,33 @@ export interface Transaction {
 })
 export class TableComponent implements OnInit {
 
+  showTableStatusSimple: boolean = false;
+  showTableStatusDouble: boolean = false;  
   displayedColumns = ['period', 'toyota', 'traffic', 'unicoba', 'webmotors', 'tim', 'total'];
   transactions: Transaction[] = [
     {period: 'Janeiro de 2007', toyota: '1.500,00', traffic: '1.500,00', unicoba: '11.350,00', webmotors: '1.500,00', tim: '1.350,00', total: '12.800,00' },
     {period: 'Janeiro de 2007', toyota: '1.500,00', traffic: '1.500,00', unicoba: '11.350,00', webmotors: '1.500,00', tim: '1.350,00', total: '17.200,00'}
   ];
 
-  @Input() showTableStatus: number;
+  @Input('filterLabel')
+  set _filterLabel(data: string) {
 
-  constructor() { 
-
+     if(data == this.global.labelsTarget[0]) {
+       console.log("L1");
+       this.showTableStatusSimple = true; 
+       this.showTableStatusDouble = false; 
+      } else if(data == this.global.labelsTarget[1]) {
+        console.log("L2");        
+        this.showTableStatusSimple = false; 
+        this.showTableStatusDouble = true;  
+    }    
 
   }
 
+  constructor(public global:globals) {
+
+  }
+  
   ngOnInit() {
 
   }

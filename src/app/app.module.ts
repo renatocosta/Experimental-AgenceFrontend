@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MyNavComponent } from './my-nav/my-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { FormsModule } from '@angular/forms';  
-import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatDividerModule, MatIconModule, MatListModule, MatCardModule, MatMenuModule, MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule, MatInputModule, MatDatepickerModule, MatNativeDateModule, DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatSelectModule, MatGridListModule } from '@angular/material';
+import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatDividerModule, MatIconModule, MatListModule, MatCardModule, MatMenuModule, MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule, MatInputModule, MatDatepickerModule, MatNativeDateModule, DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatSelectModule, MatGridListModule, MatProgressSpinnerModule } from '@angular/material';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { TabComponent } from './tab/tab.component';
 import {MatTabsModule} from '@angular/material/tabs';
@@ -16,6 +16,8 @@ import { FilterComponent } from './filter/filter.component';
 import { ChartsModule } from 'ng2-charts';
 import { PieChartComponent } from './pie-chart/pie-chart.component';
 import { BarChartComponent } from './bar-chart/bar-chart.component';
+import { globals } from '../environments/globals';
+import { ProgressSpinnerComponent } from './progress-spinner/progress-spinner.component';
 
 //create our cost var with the information about the format that we want
 export const MY_FORMATS = {
@@ -38,7 +40,8 @@ export const MY_FORMATS = {
     TableComponent,
     FilterComponent,
     PieChartComponent,
-    BarChartComponent
+    BarChartComponent,
+    ProgressSpinnerComponent
   ],
   imports: [
     FormsModule,  
@@ -64,12 +67,14 @@ export const MY_FORMATS = {
     MatInputModule,
     MatSelectModule,
     MatDividerModule,
-    ChartsModule
+    ChartsModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'it' }, //you can change useValue
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
-    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+    globals
   ],
   bootstrap: [AppComponent]
 })

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {FormControl} from '@angular/forms';
+import { Component, OnInit, Input } from '@angular/core';
+import { globals } from '../../environments/globals';
 
 @Component({
   selector: 'app-filter',
@@ -8,10 +8,27 @@ import {FormControl} from '@angular/forms';
 })
 export class FilterComponent implements OnInit {
 
-  clients = new FormControl();
-  clientsList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
+  filterLabel: string;
+  lists: string[] = [];
+  consultantList: string[] = ['Carlos Ferreira', 'Cláudio', 'José'];
+  clientsList: string[] = ['Gabriela', 'Jos'];
+  count: number = 0;
 
-  constructor() { }
+  @Input('filterLabel')
+  set _filterLabel(data: string) {
+
+     this.filterLabel = data;
+     if(this.filterLabel == this.global.labelsTarget[0]) {
+       this.lists = this.consultantList; 
+     } else if(this.filterLabel == this.global.labelsTarget[1]) {
+      this.lists = this.clientsList; 
+    }    
+
+  }
+
+  constructor(public global:globals) {
+
+  }
 
   ngOnInit() {
   }

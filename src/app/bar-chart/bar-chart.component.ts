@@ -7,8 +7,6 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class BarChartComponent implements OnInit {
 
-  @Input() showBarStatus: number;
-
   public barChartOptions = {
     scaleShowVerticalLines: false,
     responsive: true

@@ -17,9 +17,9 @@
     </mat-form-field>
     &nbsp;
     <mat-form-field>
-            <mat-label>Clientes</mat-label>
+            <mat-label>{{filterLabel}}</mat-label>
             <mat-select multiple>
-            <mat-option *ngFor="let client of clientsList" [value]="client">{{client}}</mat-option>
+            <mat-option *ngFor="let item of lists" [value]="item">{{item}}</mat-option>
         </mat-select>
     </mat-form-field>
 </form>
