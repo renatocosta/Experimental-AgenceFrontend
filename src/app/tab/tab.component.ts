@@ -1,6 +1,7 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import { globals } from '../../environments/globals';
-import { FormsModule }   from '@angular/forms';
+import { FilterComponent } from '../filter/filter.component';
+import { FilterClientsComponent } from '../filter/filter-clients.component';
 
 @Component({
   selector: 'app-tab',
@@ -9,10 +10,16 @@ import { FormsModule }   from '@angular/forms';
 })
 export class TabComponent {
 
-  showProgress = false;
+  @ViewChild(FilterComponent)
+  private filter: FilterComponent;
+
+  @ViewChild(FilterClientsComponent)
+  private filterClients: FilterClientsComponent;
+
+  showProgress: boolean;
 
   showTable = false;
-
+  
   showPieChart = false;
 
   showBarChart = false;
@@ -20,10 +27,10 @@ export class TabComponent {
   filterLabel: string;
 
   constructor(public global:globals) { 
-    this.filterLabel = this.global.labelsTarget[0];
   }
 
   ngOnInit() {
+    this.filterLabel = this.global.labelsTarget[0];
   }
 
   selectedTabIndex: number = 0;
@@ -36,36 +43,45 @@ export class TabComponent {
     let el = event.srcElement;
     const attr = el.attributes.getNamedItem('class');
     if (attr.value.indexOf('mat-tab-label-content') >= 0) {
+      console.log("attr.value: ", attr.value.indexOf('mat-tab-label'));
+
       el = el.parentElement;
+
+      const tabIndex = el.id.substring(el.id.length - 1);
+      this.filterLabel = this.global.labelsTarget[tabIndex];    
+      
+      this.showTable = false;
+      this.showPieChart = false;
+      this.showBarChart = false;      
     }
-    const tabIndex = el.id.substring(el.id.length - 1);
-    this.filterLabel = this.global.labelsTarget[tabIndex];    
-    
-    this.showTable = false;
-    this.showPieChart = false;
-    this.showBarChart = false;
 
   }
     
-  public getByReport() {
+  public getByReport(filterLabel: string) {
     this.showTable = true;
     this.showPieChart = false;
     this.showBarChart = false;
-    this.showProgress = true;
+    if(filterLabel=="Consultores") {
+    this.filter.sendForm();
+    } else if(filterLabel=="Clientes") {
+    this.filterClients.sendForm();
+    }
   }
 
   public renderBarChart() {
     this.showBarChart = true;
     this.showTable = false;
     this.showPieChart = false;
-    this.showProgress = true;    
   }
 
   public renderPieChart() {
     this.showPieChart = true;
     this.showBarChart = false;
     this.showTable = false;    
-    this.showProgress = true;    
+  }
+
+  public callProgress(value: any){
+    this.showProgress = (value == 'true');
   }
 
 }

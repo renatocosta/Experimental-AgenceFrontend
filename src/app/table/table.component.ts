@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { globals } from '../../environments/globals';
-import { APIService } from  '../api.service';
 
 export interface Transaction {
   period: string;
@@ -27,42 +26,26 @@ export class TableComponent implements OnInit {
     {period: 'Janeiro de 2007', toyota: '1.500,00', traffic: '1.500,00', unicoba: '11.350,00', webmotors: '1.500,00', tim: '1.350,00', total: '17.200,00'}
   ];
 
-  constructor(public global:globals, private  apiService:  APIService) {
+  constructor(public global:globals) {
   }
 
   @Input('filterLabel')
   set _filterLabel(data: string) {
 
-    console.log("LB: ");
-
      if(data == this.global.labelsTarget[0]) {
        console.log("L1");
        this.showTableStatusSimple = true; 
        this.showTableStatusDouble = false; 
-       this.getPosts();
       } else if(data == this.global.labelsTarget[1]) {
         console.log("L2");        
         this.showTableStatusSimple = false; 
         this.showTableStatusDouble = true; 
-        this.getComments(); 
       }    
 
   }
   
   ngOnInit() {
 
-  }
-
-  public getPosts(){
-    this.apiService.getPosts().subscribe((data:  Array<object>) => {
-        console.log(data);
-    });
-  }
-
-  public getComments(){
-    this.apiService.getComments().subscribe((data:  Array<object>) => {
-        console.log(data);
-    });
   }
 
  /** Gets the total cost of all transactions. */
