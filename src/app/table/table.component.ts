@@ -30,10 +30,11 @@ export class TableComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.apiService.shareDataSubject.subscribe(receiveddata=>{
+    this.apiService.shareDataConsultantSubject.subscribe(receiveddata=>{
        this.showTableStatusSimple = receiveddata.length > 0; 
        this.showNoSuchResults = this.showTableStatusSimple === false;
        this.transactions = receiveddata;
+       console.log('Received: ', receiveddata);    
     });
   }
 

@@ -35,30 +35,20 @@ export class FilterComponent implements OnInit {
     }); 
 
     this.apiService.getConsultants().subscribe((data:  Array<object>) => {
-      console.log(data['data']);
       this.lists = data['data']; 
       this.showProgressEvent.emit('false');
-
-    });  
-
-  }
-
-  OnChanges(){
-
-  }
-
-  ngDoCheck(){
+   });  
 
   }
 
   selectedItems(item){
     this.listUsers = item;
-    console.log('Item: ', item);
   }
 
-  public sendForm(){
+  private buildFilter() {
+
     if (this.filterForm.valid) {
-      this.showProgressEvent.emit('true');
+
       let startDate = this.filterForm.get("startDate").value;
       let endDate = this.filterForm.get("endDate").value;
 
@@ -81,16 +71,38 @@ export class FilterComponent implements OnInit {
       } 
 
       filterPeriod.period = filterValuesPeriod;
+      
+      return Object.assign(filterValues, filterPeriod);
 
-      const filter = Object.assign(filterValues, filterPeriod);
+   }
 
-      this.apiService.getConsultantsByPerformance(filter).subscribe((data:  Array<object>) => {
+   return {};
+
+  }
+
+  public searchConsultantsByPerformance(){
+
+      this.showProgressEvent.emit('true');
+
+       console.log('filter: ', this.buildFilter());
+
+      this.apiService.getConsultantsByPerformance(this.buildFilter()).subscribe((data:  Array<object>) => {
         console.log(data['data']);
-        this.apiService.notify(data['data']);
+        this.apiService.shareDataConsultantSubject.next(data['data']);      
         this.showProgressEvent.emit('false');
       });   
 
-    }    
   }
+
+  public searchConsultantsByPerformanceAndAverage(){
+
+    this.showProgressEvent.emit('true');
+
+    this.apiService.getConsultantsByPerformanceAndAverage(this.buildFilter()).subscribe((data:  Array<object>) => {
+      this.apiService.shareDataGraphConsultantSubject.next(data);      
+      this.showProgressEvent.emit('false');
+    });   
+
+ }  
 
 }

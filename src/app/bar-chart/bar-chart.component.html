@@ -1,4 +1,7 @@
-    <div style="display: block">
+  <div *ngIf="showNoSuchResults">
+    {{messageNoSuchResults}}
+  </div>
+    <div style="display: block" *ngIf="showBar">
       <canvas baseChart
               [datasets]="barChartData"
               [labels]="barChartLabels"

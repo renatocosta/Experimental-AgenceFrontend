@@ -62,19 +62,20 @@ export class TabComponent {
     this.showPieChart = false;
     this.showBarChart = false;
     if(filterLabel=="Consultores") {
-    this.filter.sendForm();
+    this.filter.searchConsultantsByPerformance();
     } else if(filterLabel=="Clientes") {
-    this.filterClients.sendForm();
+    //this.filterClients.sendForm();
     }
   }
 
-  public renderBarChart() {
+  public renderBarChart(filterLabel: string) {
+    this.filter.searchConsultantsByPerformanceAndAverage();
     this.showBarChart = true;
     this.showTable = false;
     this.showPieChart = false;
   }
 
-  public renderPieChart() {
+  public renderPieChart(filterLabel: string) {
     this.showPieChart = true;
     this.showBarChart = false;
     this.showTable = false;    

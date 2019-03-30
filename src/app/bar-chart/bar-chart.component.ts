@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { APIService } from '../api.service';
 
 @Component({
   selector: 'app-bar-chart',
@@ -7,21 +8,60 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class BarChartComponent implements OnInit {
 
+  private showBar: boolean = false;
+
+  showNoSuchResults: boolean = false;
+  messageNoSuchResults: string = "Nenhum resultado encontrado!";
+
   public barChartOptions = {
     scaleShowVerticalLines: false,
     responsive: true
   };
-  public barChartLabels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+
+  public barChartLabels = [];
   public barChartType = 'bar';
   public barChartLegend = true;
-  public barChartData = [
-    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
-    {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'}
-  ];
+  public barChartData = [];
 
-  constructor() { }
+  constructor(private  apiService:  APIService) { 
+
+  }
 
   ngOnInit() {
+    this.apiService.shareDataGraphConsultantSubject.subscribe(receiveddata=>{
+      this.showBar = receiveddata.data.length > 0; 
+      this.showNoSuchResults = this.showBar === false;
+      if(this.showBar) {
+        
+        const values = receiveddata.data.map(obj =>{ 
+          return obj.net_value_invoice;
+        });
+        this.barChartLabels = receiveddata.data.map(obj =>{ 
+          return obj.user;
+        });    
+        const cost_average = receiveddata.data.map(obj =>{ 
+          return receiveddata.cost_average;
+        });   
+        if(cost_average.length>0){
+          cost_average.push(cost_average[0]);
+          //cost_average.push(cost_average[0]);
+        }
+
+        this.barChartData = [
+          {data: values, 
+            label: 'Desempenho do consultor'
+          },
+          {
+            type: 'line',
+            label: 'Custo Fixo Médio',
+            fill: false,
+            data: cost_average
+          }  
+        ];        
+        
+        console.log('Received: ', values);    
+      }
+   });    
   }
 
 }

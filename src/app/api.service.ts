@@ -14,13 +14,11 @@ export  class  APIService {
   
   private httpOptions = {headers: new HttpHeaders({ 'Content-Type': 'application/json' })};
 
-  shareDataSubject = new Subject<any>(); //Decalring new RxJs Subject
+  shareDataConsultantSubject = new Subject<any>(); //Decalring new RxJs Subject
+
+  shareDataGraphConsultantSubject = new Subject<any>(); //Decalring new RxJs Subject
 
   constructor(private  httpClient:  HttpClient) {}
-
-  notify(message: any) {
-    this.shareDataSubject.next(message)
-  }
 
   getConsultants(){
     return  this.httpClient.get(`${this.baseUrl}/consultant`);
@@ -28,10 +26,19 @@ export  class  APIService {
 
   getConsultantsByPerformance(filter: any){
 
-    let body = JSON.stringify(filter);
-    console.log('body: ', body);
+    let payload = JSON.stringify(filter);
+    console.log('payload: ', payload);
   
-    return  this.httpClient.post(`${this.baseUrl}/consultant/performance`, body, this.httpOptions);
+    return this.httpClient.post(`${this.baseUrl}/consultant/performance`, payload, this.httpOptions);
+  }  
+
+  getConsultantsByPerformanceAndAverage(filter: any){
+
+    let payload = JSON.stringify(filter);
+    console.log('payload: ', payload);
+  
+    return this.httpClient.post(`${this.baseUrl}/consultant/performanceandaverage`, payload, this.httpOptions);
+
   }  
 
   getClients(){
