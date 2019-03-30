@@ -15,7 +15,7 @@
     &nbsp;
     <mat-form-field>
             <mat-label>{{filterLabel}}</mat-label>
-            <mat-select formControlName="items" id="items" multiple>
+            <mat-select formControlName="items" id="items" (ngModelChange)="selectedItems($event)" multiple>
             <mat-option *ngFor="let item of lists" [value]="item[key_list]">{{item[value_list]}}</mat-option>
         </mat-select>
     </mat-form-field>
