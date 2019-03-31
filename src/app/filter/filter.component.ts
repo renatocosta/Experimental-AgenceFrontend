@@ -15,6 +15,7 @@ export class FilterComponent implements OnInit {
 
   filterLabel: string = "Consultores";
   lists: object[] = [];
+  listsClient: object[] = [];
   consultantList: string[] = ['Carlos Ferreira', 'Cláudio', 'José'];
   key_list: string = "co_usuario";
   value_list: string = "no_usuario";
@@ -104,5 +105,16 @@ export class FilterComponent implements OnInit {
     });   
 
  }  
+
+ public searchConsultantsByPerformanceAndPercentage(){
+
+  this.showProgressEvent.emit('true');
+
+  this.apiService.getConsultantsByPerformanceAndPercentage(this.buildFilter()).subscribe((data:  Array<object>) => {
+    this.apiService.shareDataGraphPercentageConsultantSubject.next(data);      
+    this.showProgressEvent.emit('false');
+  });   
+
+}
 
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { APIService } from '../api.service';
 
 @Component({
   selector: 'app-pie-chart',
@@ -7,13 +8,34 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class PieChartComponent implements OnInit {
 
-  public pieChartLabels = ['Sales Q1', 'Sales Q2', 'Sales Q3', 'Sales Q4'];
-  public pieChartData = [120, 150, 180, 90];
+  private showBar: boolean = false;
+
+  showNoSuchResults: boolean = false;
+  messageNoSuchResults: string = "Nenhum resultado encontrado!";
+
+  public pieChartLabels = [];
+  public pieChartData = [];
   public pieChartType = 'pie';
 
-  constructor() { }
+  constructor(private apiService: APIService) {
+
+  }
 
   ngOnInit() {
+    this.apiService.shareDataGraphPercentageConsultantSubject.subscribe(receiveddata => {
+      this.showBar = receiveddata.data.length > 0;
+      this.showNoSuchResults = this.showBar === false;
+      if (this.showBar) {
+
+        this.pieChartLabels = receiveddata.data.map(obj =>{ 
+          return obj.user;
+        });            
+        this.pieChartData = receiveddata.data.map(obj => {
+          return obj.percentage;
+        });
+
+      }
+    });
   }
 
 }

@@ -18,6 +18,8 @@ export  class  APIService {
 
   shareDataGraphConsultantSubject = new Subject<any>(); //Decalring new RxJs Subject
 
+  shareDataGraphPercentageConsultantSubject = new Subject<any>(); //Decalring new RxJs Subject
+
   constructor(private  httpClient:  HttpClient) {}
 
   getConsultants(){
@@ -41,8 +43,17 @@ export  class  APIService {
 
   }  
 
+  getConsultantsByPerformanceAndPercentage(filter: any){
+
+    let payload = JSON.stringify(filter);
+    console.log('payload: ', payload);
+  
+    return this.httpClient.post(`${this.baseUrl}/consultant/performanceandpercentage`, payload, this.httpOptions);
+
+  }  
+
   getClients(){
     return  this.httpClient.get(`${this.baseUrl}/client`);
   }  
-
+  
 }

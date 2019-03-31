@@ -76,6 +76,7 @@ export class TabComponent {
   }
 
   public renderPieChart(filterLabel: string) {
+    this.filter.searchConsultantsByPerformanceAndPercentage();
     this.showPieChart = true;
     this.showBarChart = false;
     this.showTable = false;    

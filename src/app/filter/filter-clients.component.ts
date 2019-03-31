@@ -19,6 +19,7 @@ export class FilterClientsComponent implements OnInit {
   public filterForm: FormGroup;
   key_list: string = "co_cliente";
   value_list: string = "no_razao";
+  listUsers: [] = [];
 
   constructor(public global:globals, private  apiService:  APIService) {
 
@@ -31,12 +32,15 @@ export class FilterClientsComponent implements OnInit {
       items: new FormControl()
     });
     this.apiService.getClients().subscribe((data:  Array<object>) => {
-      console.log(data);
-      this.lists = data; 
+      this.lists = data['data']; 
       this.showProgressEvent.emit('false');
 
     });    
 
+  }
+
+  selectedItems(item){
+    this.listUsers = item;
   }
 
   public sendForm(){
