@@ -18,10 +18,11 @@ export interface TransactionConsultant {
 export class TableComponent implements OnInit {
 
   showTableStatusSimple: boolean = false;
-  showTableStatusDouble: boolean = false;  
+  showTableStatusSimple2: boolean = false;  
   showNoSuchResults: boolean = false;
   messageNoSuchResults: string = "Nenhum resultado encontrado!";
   displayedColumns = ['user', 'net_value_invoice', 'fixed_cost_consultant', 'commisson', 'net_income'];
+  displayedColumnsClients = ['user', 'net_income'];
   transactions: TransactionConsultant[];
 
   message:any;
@@ -31,11 +32,21 @@ export class TableComponent implements OnInit {
 
   ngOnInit() {
     this.apiService.shareDataConsultantSubject.subscribe(receiveddata=>{
+       this.showTableStatusSimple2 = false; 
        this.showTableStatusSimple = receiveddata.length > 0; 
        this.showNoSuchResults = this.showTableStatusSimple === false;
        this.transactions = receiveddata;
        console.log('Received: ', receiveddata);    
     });
+
+    this.apiService.shareDataClientSubject.subscribe(receiveddata=>{
+      this.showTableStatusSimple = false;      
+      this.showTableStatusSimple2 = receiveddata.length > 0; 
+      this.showNoSuchResults = this.showTableStatusSimple2 === false;
+      this.transactions = receiveddata;
+      console.log('Received clients: ', receiveddata);    
+   });
+
   }
 
  /** Gets the total cost of all transactions. */

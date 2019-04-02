@@ -36,6 +36,21 @@ export class PieChartComponent implements OnInit {
 
       }
     });
+
+    this.apiService.shareDataGraphPercentageClientSubject.subscribe(receiveddata => {
+      this.showBar = receiveddata.data.length > 0;
+      this.showNoSuchResults = this.showBar === false;
+      if (this.showBar) {
+
+        this.pieChartLabels = receiveddata.data.map(obj =>{ 
+          return obj.user;
+        });            
+        this.pieChartData = receiveddata.data.map(obj => {
+          return obj.percentage;
+        });
+
+      }
+    });    
   }
 
 }

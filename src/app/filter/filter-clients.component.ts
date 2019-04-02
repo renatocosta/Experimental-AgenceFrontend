@@ -39,24 +39,80 @@ export class FilterClientsComponent implements OnInit {
 
   }
 
+  private buildFilter() {
+
+    if (this.filterForm.valid) {
+
+      let startDate = this.filterForm.get("startDate").value;
+      let endDate = this.filterForm.get("endDate").value;
+
+      const filterValues: any = {};
+      const filterPeriod: any = {};      
+      const filterValuesPeriod: any = {"start_date":"", "end_date":""};
+
+      console.log("FILTER:size ", this.listUsers.length);
+
+
+      if(this.listUsers.length>0) {
+        filterValues.username = this.listUsers;
+      }
+
+      if(startDate) {
+        startDate = moment(startDate).format('YYYY-MM-DD');
+        filterValuesPeriod.start_date = startDate;
+      }
+
+      if(endDate) {
+        endDate = moment(endDate).format('YYYY-MM-DD');
+        filterValuesPeriod.end_date = endDate;
+      } 
+
+      filterPeriod.period = filterValuesPeriod;
+      
+      return Object.assign(filterValues, filterPeriod);
+
+   }
+
+   return {};
+
+  }  
+
   selectedItems(item){
+    console.log("FILTER: ", this.listUsers);
     this.listUsers = item;
   }
 
-  public sendForm(){
-    if (this.filterForm.valid) {
-      this.showProgressEvent.emit('true');
-      /*const payload = {"startDate": moment(this.filterForm.get("startDate").value).format('YYYY-MM-DD'),
-                 "endDate": moment(this.filterForm.get("endDate").value).format('YYYY-MM-DD'),
-                 "source_list": this.filterForm.get("items").value };
-                 this.apiService.getPosts(payload).subscribe((data:  Array<object>) => {
-                  console.log(data);
-                  this.showProgressEvent.emit('false');
-              });
-          
-      console.log("FORM::::", payload);*/
+  public searchClientsByPerformance(){
 
-    }    
+    this.showProgressEvent.emit('true');
+  
+    this.apiService.getClientsByPerformance(this.buildFilter()).subscribe((data:  Array<object>) => {
+      this.apiService.shareDataClientSubject.next(data['data']);      
+      this.showProgressEvent.emit('false');
+    });   
+  
   }
+
+  public searchClientsByPerformanceAndAverage(){
+
+    this.showProgressEvent.emit('true');
+
+    this.apiService.getClientsByPerformanceAndAverage(this.buildFilter()).subscribe((data:  Array<object>) => {
+      this.apiService.shareDataGraphClientSubject.next(data);      
+      this.showProgressEvent.emit('false');
+    });   
+
+ }  
+
+ public searchClientsByPerformanceAndPercentage(){
+
+  this.showProgressEvent.emit('true');
+
+  this.apiService.getClientsByPerformanceAndPercentage(this.buildFilter()).subscribe((data:  Array<object>) => {
+    this.apiService.shareDataGraphPercentageClientSubject.next(data);      
+    this.showProgressEvent.emit('false');
+  });   
+
+}
 
 }

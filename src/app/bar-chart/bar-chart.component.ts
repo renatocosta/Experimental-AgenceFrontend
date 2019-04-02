@@ -62,6 +62,29 @@ export class BarChartComponent implements OnInit {
         console.log('Received: ', values);    
       }
    });    
+
+   //Clients
+   this.apiService.shareDataGraphClientSubject.subscribe(receiveddata=>{
+    this.showBar = receiveddata.data.length > 0; 
+    this.showNoSuchResults = this.showBar === false;
+    if(this.showBar) {
+      
+      const values = receiveddata.data.map(obj =>{ 
+        return obj.net_income;
+      });
+      this.barChartLabels = receiveddata.data.map(obj =>{ 
+        return obj.user;
+      });    
+
+      this.barChartData = [
+        {data: values, 
+          label: 'Desempenho do cliente'
+        }
+      ];        
+      
+      console.log('Received: ', values);    
+    }
+ });   
   }
 
 }

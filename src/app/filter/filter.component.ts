@@ -85,10 +85,7 @@ export class FilterComponent implements OnInit {
 
       this.showProgressEvent.emit('true');
 
-       console.log('filter: ', this.buildFilter());
-
       this.apiService.getConsultantsByPerformance(this.buildFilter()).subscribe((data:  Array<object>) => {
-        console.log(data['data']);
         this.apiService.shareDataConsultantSubject.next(data['data']);      
         this.showProgressEvent.emit('false');
       });   
