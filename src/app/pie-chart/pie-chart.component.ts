@@ -8,7 +8,7 @@ import { APIService } from '../api.service';
 })
 export class PieChartComponent implements OnInit {
 
-  private showBar: boolean = false;
+  public showBar: boolean = false;
 
   showNoSuchResults: boolean = false;
   messageNoSuchResults: string = "Nenhum resultado encontrado!";
